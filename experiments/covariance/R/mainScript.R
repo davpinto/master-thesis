@@ -41,4 +41,4 @@ results <- ddply(results, .(dataset, ratio, algorithm), summarise,
                  eigdiff.sd=sd(eigdiff), eigcos.mean=mean(eigcos), 
                  eigcos.sd=sd(eigcos), time.mean=mean(time), 
                  time.sd=sd(time));
-write.csv(x=results, file='../results.csv', quote=FALSE, row.names=FALSE)
+write.csv(x=results, file='results.csv', quote=FALSE, row.names=FALSE)
