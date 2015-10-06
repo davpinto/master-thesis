@@ -46,7 +46,7 @@ problems <- sapply(list.files('./data/', pattern='data_'), gsub,
                    pattern='.RData', replacement='', simplify='array');
 problems <- sapply(problems, gsub, pattern='data_', replacement='',
                    simplify='array');
-problems <- c('ionosphere') # comment this line to run for all datasets
+problems <- c('sonar') # comment this line to run for all datasets
 
 # --- Algorithm names ---
 classifiers <- c('GaussNaiveBayes','KernelNaiveBayes','LinearDiscriminant',

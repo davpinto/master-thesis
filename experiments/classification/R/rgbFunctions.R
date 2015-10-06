@@ -53,10 +53,6 @@ rgb <- function(x, y, estim='oas') {
         # - MLE -
         mu.mle <- colMeans(x);
         # - Regularized MLE -
-        # mu <- (colSums(x)+1)/(Nk+2);
-        # - James-Stein Empirical Bayes Estimator -
-        # For p>=3, the James–Stein estimator everywhere dominates the MLE
-        # estimator in terms of expected total squared error
         # [DeMiguel - 2013] Size Matters: Optimal Calibration of shrinkage
         # estimators
         mu.tar <- rep(mean(mu.mle), p);
@@ -212,13 +208,16 @@ predict.brgb <- function(model, x, type='class') {
         # rownames(y.bin) <- NULL;
         # colnames(y.bin) <- NULL;
         # resp <- resp + y.bin*(model$w[i]);
+
         # - Weighted Average Probabilities -
         y.logp <- predict(model$boost[[i]], x, type='prob')[,1];
+        # Calibrate probabilities 
         if(!is.null(model$boost[[i]]$calib)) {
             y.logp <- model$boost[[i]]$calib$calProb[
                 findInterval(y.logp, c(0, model$boost[[i]]$calib$interval),
                              all.inside=TRUE)];
         }
+        # Invert output of classifiers with misclassification prob. < 0.5
         if (model$w[i] >= 0) {
           resp <- resp + y.logp*(model$w[i]);
         } else {
