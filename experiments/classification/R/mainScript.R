@@ -75,4 +75,4 @@ results <- ddply(results, .(dataset, algorithm), summarise,
                  acc.mean=mean(acc), acc.sd=sd(acc), auc.mean=mean(auc),
                  auc.sd=sd(auc), loss.mean=mean(loss), loss.sd=sd(loss),
                  time.mean=mean(time), time.sd=sd(time));
-write.csv(x=results, file='r.csv', quote=FALSE, row.names=FALSE)
+write.csv(x=results, file='results.csv', quote=FALSE, row.names=FALSE)

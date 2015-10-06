@@ -260,7 +260,8 @@ multi.brgb <- function(x, y, estim='oas', eta=0.5, iter=20, calib=TRUE) {
         models <- parallel::parLapply(cl, levels(y), boost.binary, x.tr=x, y.tr=y,
                                       params=brgb.params);
     } else {
-        models <- lapply(levels(y), boost.binary, x.tr=x, y.tr=y, pars=brgb.params);
+        models <- lapply(levels(y), boost.binary, x.tr=x, y.tr=y, 
+                         params=brgb.params);
     }
     model <- list(model=models, class.labels=levels(y));
 
@@ -276,7 +277,8 @@ predict.multibrgb <- function(model, x, type='class') {
         return(y.hat)
     }
     if (exists('cl')) {
-        resp <- parallel::parLapply(cl, model$model, boost.binary.predict, x.te=x);
+        resp <- parallel::parLapply(cl, model$model, boost.binary.predict, 
+                                    x.te=x);
     } else {
         resp <- lapply(model$model, boost.binary.predict, x.te=x);
     }
