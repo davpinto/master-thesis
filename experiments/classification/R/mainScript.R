@@ -59,8 +59,8 @@ classifiers <- c('RegGaussBayes','BoostedRgb-diag','BoostedRgb-lowrank',
                  'BoostedRgb','BoostedRgb-iso', 'Adaboost');
 
 # --- Experiment parameters ---
-k.folds <- 3; # Split data into subsets with roughly 20% of the instances
-n.runs  <- 2; # To get a sample of 30 results
+k.folds <- 5; # Split data into subsets with roughly 20% of the instances
+n.runs  <- 6; # To get a sample of 30 results
 
 # --- Classify problems ---
 results <- lapply(problems, classifyDataset, algs=classifiers, k=k.folds,
