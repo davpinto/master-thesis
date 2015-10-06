@@ -18,13 +18,13 @@ source('./R/utilityFunctions.R')
 source('./R/covFunctions.R')
 
 # --- Dataset names ---
-problems <- c('sparse','sparse');
+problems <- c('nonsparse','sparse');
 
 # --- Algorithm names ---
 estimators <- c('emp','diag','oas','ss','ppca','spc','quic');
 
 # --- Experiment parameters ---
-n.runs <- 5;
+n.runs <- 50;
 N <- c(1000, 200, 100, 50, 10);
 
 # --- Experiment ---
