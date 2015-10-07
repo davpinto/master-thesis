@@ -54,9 +54,7 @@ classifiers <- c('GaussNaiveBayes','KernelNaiveBayes','LinearDiscriminant',
                  'RegGaussBayes-lowrank','RegGaussBayes','BoostedRgb-diag',
                  'RegGaussBayes-lowrank','RegGaussBayes','GaussProcess',
                  'NonlinearRbfSvm','ExtraTrees','Adaboost','GradientBoosting',
-                 'RandomForest');
-classifiers <- c('RegGaussBayes','BoostedRgb-diag','BoostedRgb-lowrank',
-                 'BoostedRgb','BoostedRgb-iso', 'Adaboost');
+                 'RandomForest'); # remove names to left out some algorithms
 
 # --- Experiment parameters ---
 k.folds <- 5; # Split data into subsets with roughly 20% of the instances
