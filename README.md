@@ -6,8 +6,10 @@ This work presents a novel approach to reduce the effects of the violations of t
 Moreover, improvements in RGB accuracy and stability are achieved using Adaptive Boosting (AdaBoost). In short, the proposed Boosted RGB (BRGB) classifier generates a sequentially weighted set of RGB base classifiers that are combined to form a robust classifier. Classification experiments have demonstrated that the BRGB achieves prediction performance comparable to the best off-the-shelf ensemble based architectures, such as Random Forests, Extremely Randomized Trees (ExtraTrees) and Gradient Boosting Machines (GBMs), using few (10 to 20) base classifiers.
 
 ---
-**BRGB Decision Boundary over boosting iterations:**
-![Boosted Regularized Gaussian Bayes Classifier](cover_boostedRGB.gif)
+
+->**BRGB Decision Boundary over boosting iterations:**<-
+![Boosted Regularized Gaussian Bayes Classifier](cover_boostedRGB.gif#center)
+
 ---
 
 ### References
@@ -35,3 +37,5 @@ Moreover, improvements in RGB accuracy and stability are achieved using Adaptive
 [11] Schapire, Robert E., and Yoav Freund. ["Boosting: Foundations and algorithms."](https://mitpress.mit.edu/books/boosting) MIT press, 2012.
 
 [12] Niculescu-Mizil, Alexandru, and Rich Caruana. ["Predicting good probabilities with supervised learning."](http://dx.doi.org/10.1145/1102351.1102430) In Proceedings of the 22nd international conference on Machine learning, pp. 625-632. ACM, 2005.
+
+img[src*='#center']{ float: right; }
