@@ -130,7 +130,7 @@ trainClassifier <- function(alg.name, x, y) {
                        rgb(x=x, y=y, estim='ppca-2');
                    }, silent=TRUE);
                },
-               
+
                'BoostedRgb' = {
                    model <- try({
                        multi.brgb(x, y, estim='oas', eta=0.5, iter=20,
@@ -151,7 +151,7 @@ trainClassifier <- function(alg.name, x, y) {
                                   calib=FALSE);
                    }, silent=TRUE);
                },
-               
+
                'BoostedRgb-iso' = {
                    model <- try({
                        multi.brgb(x, y, estim='oas', eta=0.5, iter=20,
@@ -340,7 +340,7 @@ testClassifier <- function(model, x, y, dataset) {
                                       acc=NA, auc=NA, loss=NA, time=NA) )
                }
            },
-           
+
            'BoostedRgb-iso' = {
                if(class(model) != 'try-error') {
                    resp <- predict(model, x, type='both');
@@ -479,6 +479,14 @@ predict.adaboost <- function(model, x) {
 # --- Sofia Fast Linear SVM: one-against-all ---
 # Fit model
 svmsofia <- function(x, y, ncores=1) {
+    # -- Center and scale features --
+    x.means <- colMeans(x);
+    x.sds   <- apply(x, 2, sd);
+    x <- sweep(x, 2, x.means, '-');
+    x <- sweep(x, 2, x.sds, '/');
+    norm.params <- list(center=x.means, scale=x.sds);
+
+    # -- Multiclass to binary --
     sofia.binomial.fit <- function(label, x, y) {
         y <- as.numeric(y==label);
         y[y==0] <- -1;
@@ -491,12 +499,17 @@ svmsofia <- function(x, y, ncores=1) {
     model <- lapply(levels(y), sofia.binomial.fit, x=x, y=y);
     # model <- parallel::mclapply(levels(y), sofia.binomial.fit, x=x, y=y,
                                 # mc.cores=ncores);
-    model <- list(svm=model, class.labels=levels(y));
+    model <- list(svm=model, class.labels=levels(y), norm=norm.params);
 
     return( structure(model, class='svmsofia') )
 }
 # Assign labels
 predict.svmsofia <- function(model, x) {
+    # -- Center and scale test instances --
+    x <- sweep(x, 2, model$norm$center, '-');
+    x <- sweep(x, 2, model$norm$scale, '/');
+
+    # -- Class evidence --
     sofia.binomial.predict <- function(model, x) {
         dt <- data.frame(x=x, y=rep(0, nrow(x)));
         y.hat <- predict(model$model, newdata=dt, prediction_type="logistic");
@@ -505,11 +518,11 @@ predict.svmsofia <- function(model, x) {
     y.pred <- lapply(model$svm, sofia.binomial.predict, x=x);
     y.pred <- do.call('cbind', y.pred);
 
-    # --- Labels ---
+    # -- Labels --
     label.idx <- apply(y.pred, 1, which.max);
     y.hat <- factor(model$class.labels[label.idx], levels=model$class.labels);
 
-    # --- Probabilities ---
+    # -- Probabilities --
     y.prob <- sweep(y.pred, 1, rowSums(y.pred), '/');
     colnames(y.prob) <- model$class.labels;
 
