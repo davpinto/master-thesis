@@ -31,7 +31,7 @@ lwCov <- function(x, alpha, w) {
     
     # --- Sample weights ---
     if(missing(w)) {
-        w <- rep(1, N);
+        w <- rep(1/N, N);
     } else {
         w <- w/sum(w);
     }
