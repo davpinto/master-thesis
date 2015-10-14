@@ -46,7 +46,7 @@ lwCov <- function(x, alpha, w) {
     x <- sweep(x, 2, colMeans(x), '-');
     
     # --- Shrinkage intensity ---
-    if(is.null(shrinkage)) {
+    if(missing(alpha)) {
         # -- Phi estimator --
         y <- x^2;
         y <- sweep(y, 1, sqrt(w), '*');
@@ -58,13 +58,13 @@ lwCov <- function(x, alpha, w) {
         
         # -- Shrinkage constant --
         kappa <- phi/gamma;
-        shrinkage <- max(0, min(1, kappa/(N-1)));
+        alpha <- max(0, min(1, kappa/(N-1)));
     }
     
     # --- Shrinkage estimator ---
-    Sig <- shrinkage*T + (1-shrinkage)*S;
+    Sig <- alpha*T + (1-alpha)*S;
     
-    return( list(cov=Sig, w=w, shrinkage=shrinkage) )
+    return( list(cov=Sig, shrinkage=alpha) )
 }
 
 # --- Stein-type shirinkage with OAS penalty estimator ---
