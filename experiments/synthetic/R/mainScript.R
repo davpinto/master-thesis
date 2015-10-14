@@ -13,8 +13,7 @@ library('caret')        # K-fold Cross-Validation routine
 library('Metrics')      # Performance metrics
 library('matrixStats')  # Row and Column wize statistics
 library('mvnfast')      # Fast multivariate Normal density
-library('pbapply')      # Print progress bar for the apply family 
-library('ggplot2')
+library('pbapply')      # Print progress bar for the apply family
 
 # --- Load external functions ---
 source('../covariance/R/covFunctions.R')
