@@ -1,5 +1,6 @@
 Bayesian Classification with Regularized Gaussian Models
 ========================================================
+> Bayesian classifiers with regularized estimators for the class priors, vector of means and covariance matrix
 
 This work presents a novel approach to reduce the effects of the violations of the attribute independence assumption on which the Gaussian naive Bayes classifier is based. A Regularized Gaussian Bayes (RGB) algorithm is introduced, that considers the correlation structure among variables to learn the class posterior probabilities. The proposed RGB classifier avoids overfitting by replacing the sample covariance estimate with well-conditioned regularized estimates. So, RGB aims to find the best trade-off between non-naivety and prediction accuracy.
 
