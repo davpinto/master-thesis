@@ -429,10 +429,9 @@ multiLogLoss <- function(y, prob) {
     eps  <- 1e-15;
     prob <- pmin(pmax(prob, eps), 1-eps);
 
-    # --- Label to binary matrix ---
-    y <- lapply(y, function(current, all) as.numeric(all==current),
-                all=levels(y));
-    y <- do.call('rbind', y);
+    # --- Convert labels to a 0-1 coded matrix ---
+    N <- length(y);
+    y <- as.matrix(table(1:N, y));
 
     # --- Compute log-loss ---
     log.loss <- (-1/nrow(y))*sum(y*log(prob));
